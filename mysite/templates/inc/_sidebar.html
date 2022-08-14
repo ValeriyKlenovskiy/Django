@@ -1,0 +1,12 @@
+{% load news_tags %}
+{% comment %}
+<div class="list-group">
+    {% get_list_categories as categories %}
+    {% for item in categories %}
+    <a href="{% news_item.category.get_absolute_url %}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">{{item.title}} </a>
+    {% endfor %}
+</div>
+
+<br>
+{% endcomment %}
+{% show_categories %}
