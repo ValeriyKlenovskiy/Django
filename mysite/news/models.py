@@ -39,3 +39,19 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
         ordering = ['title']
+
+
+class Contacts(models.Model):
+    subject = models.CharField(max_length=150, verbose_name='Тема')
+    content = models.TextField(verbose_name='Сообщение')
+    email = models.EmailField(verbose_name='Контактный Email')
+
+    def get_absolute_url(self):
+        return reverse('contact')
+
+    def __str__(self):
+        return self.subject
+
+    class Meta:
+        verbose_name = 'Сообщение'
+        verbose_name_plural = 'Сообщения'

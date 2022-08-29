@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django import forms
-from .models import News, Category
+from .models import News, Category, Contacts
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
@@ -29,11 +29,19 @@ class NewsAdmin(admin.ModelAdmin):
 
     get_photo.short_description = 'Фотография'
 
+
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
     list_display_links = ('id', 'title')
     search_fields = ('title',)
 
 
+class ContactsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'subject')
+    list_display_links = ('id', 'subject')
+    search_fields = ('subject',)
+
+
 admin.site.register(News, NewsAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Contacts, ContactsAdmin)

@@ -139,18 +139,12 @@ INTERNAL_IPS = [
     # ...
 ]
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = ''
-# EMAIL_HOST_PASSWORD = ''
-# EMAIL_USE_TLS = False
-# EMAIL_USE_SSL = True
-
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'django_cache'),
+        'LOCATION': os.path.join(BASE_DIR, 'django_cache')
     }
 }

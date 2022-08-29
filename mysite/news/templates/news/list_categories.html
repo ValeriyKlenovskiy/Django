@@ -2,6 +2,6 @@
     {% for item in categories %}
     <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action" tabindex="-1"
        aria-disabled="true">{{item.title}}
-    <span class="badge badge-primary badge-pill"> {{ item.cnt }}</span></a>
+        <span class="badge badge-primary badge-pill"> {{ item.cnt }}</span></a>
     {% endfor %}
 </div>

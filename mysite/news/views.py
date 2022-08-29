@@ -1,13 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
-from django.core.paginator import Paginator
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.urls import reverse_lazy
-from .models import News, Category
+from .models import News, Category, Contacts
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.core.mail import send_mail
 
 
 class HomeNews(ListView):
@@ -50,25 +46,6 @@ class ViewNews(DetailView):
 class CreateNews(CreateView):
     form_class = NewsForm
     template_name = 'news/add_news.html '
-    #success_url = reverse_lazy('home')
-
-
-def contact(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['message'],
-                             '1', ['2'])
-            if mail:
-                messages.success(request, 'Письмо отправлено')
-                return redirect('test')
-            else:
-                messages.error((request, 'Ошибка отправки'))
-        else:
-            messages.error(request, "Письмо не отправлено")
-    else:
-        form = ContactForm()
-    return render(request, 'news/contact.html', {'form': form})
 
 
 def register(request):
@@ -105,29 +82,13 @@ def user_logout(request):
     logout(request)
     return redirect('home')
 
-#def index(request):
-#    news = News.objects.order_by('-created_at')
-#    context = {'news': news,
-#               'title': 'Список новостей'}
-#    return render(request, 'news/index.html', context)
 
-
-#def get_category(request, category_id):
-#    news = News.objects.filter(category_id=category_id)
-#    category = Category.objects.get(pk=category_id)
-#    return render(request, 'news/category.html', {'news': news, 'category': category})
-
-
-#def view_news(request, news_id):
-#    news_item = get_object_or_404(News, pk=news_id)
-#    return render(request, 'news/view_news.html', {'news_item': news_item})
-
-# def add_news(request):
-#     if request.method == 'POST':
-#         form = NewsForm(request.POST)
-#         if form.is_valid():
-#             news = form.save()
-#             return redirect(news)
-#     else:
-#         form = NewsForm()
-#     return render(request, 'news/add_news.html', {'form': form})
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            Contacts.objects.create(**form.cleaned_data)
+            return redirect('home')
+    else:
+        form = ContactForm()
+    return render(request, 'news/contact.html', {'form': form})

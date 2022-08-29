@@ -9,7 +9,8 @@ from captcha.fields import CaptchaField
 
 class ContactForm(forms.Form):
     subject = forms.CharField(label='Тема', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    message = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    content = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    email = forms.EmailField(label='Ваш Email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     captcha = CaptchaField()
 
 
@@ -19,10 +20,10 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(label='Имя пользователя', widget= forms.TextInput(attrs={'class': 'form-control'}))
-    password1 = forms.CharField(label='Пароль', widget= forms.PasswordInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Подтверждение пароля',
-                               widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+                                widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
 
     class Meta:
@@ -33,7 +34,7 @@ class UserRegisterForm(UserCreationForm):
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = ['title', 'content', 'is_published', 'category']
+        fields = ['title', 'content', 'category']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
